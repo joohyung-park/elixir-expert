@@ -28,5 +28,6 @@
   },
   "remoteEnv": {
     "PATH": "${containerEnv:PATH}:/opt/expert/apps/expert/_build/prod/rel/expert/bin"
-  }
+  },
+  "mounts": []
 }
