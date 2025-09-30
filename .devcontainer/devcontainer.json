@@ -1,0 +1,57 @@
+{
+    "name": "Expert LSP Dev",
+      "build": {
+            "dockerfile": "Dockerfile"
+              },
+
+                  // User 설정
+                    "remoteUser": "vscode",
+                      "containerUser": "vscode",
+                        "updateRemoteUserUID": true,
+
+                            // User 생성
+                              "features": {
+                                    "ghcr.io/devcontainers/features/common-utils:2": {
+                                            "installZsh": true,
+                                                  "installOhMyZsh": true,
+                                                        "username": "vscode",
+                                                              "userUid": "automatic",
+                                                                    "userGid": "automatic"
+                                                                        }
+                                                                          },
+
+                                                                              // Git/SSH 설정 마운트
+                                                                                "mounts": [
+                                                                                      "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached",
+                                                                                          "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+                                                                                            ],
+
+                                                                                                // VSCode 설정 - Lexical 확장에 Expert 경로 지정
+                                                                                                  "customizations": {
+                                                                                                        "vscode": {
+                                                                                                                "extensions": [
+                                                                                                                          "lexical-lsp.lexical"
+                                                                                                                                ],
+                                                                                                                                      "settings": {
+                                                                                                                                                "terminal.integrated.defaultProfile.linux": "zsh",
+                                                                                                                                                        // Lexical이 Expert 바이너리를 사용하도록 설정
+                                                                                                                                                                "lexical.server.releasePathOverride": "/opt/expert/apps/expert/burrito_out/expert_linux_amd64"
+                                                                                                                                                                      }
+                                                                                                                                                                          }
+                                                                                                                                                                            },
+
+                                                                                                                                                                                // 환경 변수
+                                                                                                                                                                                  "remoteEnv": {
+                                                                                                                                                                                        "PATH": "${containerEnv:PATH}:/opt/expert/apps/expert/_build/prod/rel/expert/bin"
+                                                                                                                                                                                          }
+                                                                                                                                                                                          }
+                                                                                                                                                                                  }
+                                                                                                                                      }
+                                                                                                                ]
+                                                                                                        }
+                                                                                                  }
+                                                                                ]
+                                    }
+                              }
+      }
+}
